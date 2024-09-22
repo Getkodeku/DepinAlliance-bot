@@ -16,6 +16,7 @@ black = Fore.LIGHTBLACK_EX
 # Global variable to store the last log message
 last_log_message = None
 
+
 def _banner():
     """Displays the application banner."""
     banner = r"""
@@ -24,20 +25,22 @@ def _banner():
  | | | |  / _ \ | | | __|  / _` |    \  / 
  | |_| | |  __/ | | | |_  | (_| |    /  \ 
  |____/   \___| |_|  \__|  \__,_|   /_/\_\
-"""                                         
+"""
     print(Fore.GREEN + Style.BRIGHT + banner + Style.RESET_ALL)
     print(green + " DePin Alliance Telegram Bot")
     log_line()
 
+
 def _clear():
     """Clears the terminal."""
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("cls" if os.name == "nt" else "clear")
+
 
 def read_config():
     """Reads and returns the configuration from the config.json file."""
-    config_path = os.path.join(os.path.dirname(__file__), '../config.json')
+    config_path = os.path.join(os.path.dirname(__file__), "../config.json")
     try:
-        with open(config_path, 'r') as file:
+        with open(config_path, "r") as file:
             return json.load(file)
     except FileNotFoundError:
         log(red + "Config file not found!")
@@ -46,22 +49,25 @@ def read_config():
         log(red + f"Error parsing config file: {e}")
         return {}
 
+
 def log(message, *args, **kwargs):
     """Logs a message with a timestamp, preventing duplicate messages."""
     global last_log_message
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    flush = kwargs.pop('flush', False)
-    end = kwargs.pop('end', '\n')
-    
+    flush = kwargs.pop("flush", False)
+    end = kwargs.pop("end", "\n")
+
     # Only print the log if it's different from the last one
-    full_message = message + ' ' + ' '.join(map(str, args))
+    full_message = message + " " + " ".join(map(str, args))
     if full_message != last_log_message:
         print(f"[{current_time}] {full_message}", flush=flush, end=end)
         last_log_message = full_message
 
+
 def log_line():
     """Logs a separator line."""
     print(white + "~" * 60)
+
 
 def countdown_timer(seconds):
     """Displays a countdown timer in HH:MM:SS format."""
